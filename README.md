@@ -1,4 +1,3 @@
 # HTTPClient
 
-A description of this package.
-# http_client
+A simple Swift HTTP client package. 
