@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HTTPError.swift
 //  
 //
 //  Created by Pete Smith on 30/06/2022.

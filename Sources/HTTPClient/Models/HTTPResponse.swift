@@ -22,6 +22,12 @@ public struct HTTPResponse {
                 self = .info
             case 200..<300:
                 self = .success
+            case 300..<400:
+                self = .redirection
+            case 400..<500:
+                self = .clientErrors
+            case 500..<600:
+                self = .serverErrors
             default:
                 self = .success
             }
@@ -30,7 +36,7 @@ public struct HTTPResponse {
 
     public let request: HTTPRequest
     public let body: Data?
-    private let response: HTTPURLResponse
+    public let response: HTTPURLResponse
 
     public var status: HTTPStatus {
         HTTPStatus(rawValue: response.statusCode)

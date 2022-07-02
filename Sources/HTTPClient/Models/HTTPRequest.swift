@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class HTTPRequest {
+public struct HTTPRequest {
 
     public enum HTTPMethod {
         case get
