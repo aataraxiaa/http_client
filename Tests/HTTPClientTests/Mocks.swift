@@ -10,9 +10,15 @@ import Foundation
 
 extension HTTPRequest {
 
-    static let basicGet: HTTPRequest = {
-        HTTPRequest()
-    }()
+//    static let basicGet: HTTPRequest = {
+//
+//    }()
+
+    var get: HTTPRequest<String> {
+        get {
+            HTTPRequest<String>()
+        }
+    }
 }
 
 extension URL {
