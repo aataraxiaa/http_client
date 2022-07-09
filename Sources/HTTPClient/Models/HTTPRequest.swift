@@ -7,8 +7,11 @@
 
 import Foundation
 
+
+/// Type representing a HTTP request
 public struct HTTPRequest<Response> {
 
+    /// HTTP method types
     public enum HTTPMethod {
         case get
         case post
@@ -16,21 +19,33 @@ public struct HTTPRequest<Response> {
         case delete
     }
 
+    // Public properties
+    public var path: String
     public var method: HTTPMethod = .get
     public var headers: [String: String] = [:]
-    public var body: Data?
-    public let decode: (HTTPResponse) throws -> Response
-    private var urlComponents = URLComponents()
 
-    public init(decode: @escaping (HTTPResponse) throws -> Response) {
-        urlComponents.scheme = "https"
+    // Requests with a body (e.g `post`)
+    public var body: Data?
+
+    // Decoding
+    public let decode: (HTTPResponse) throws -> Response
+
+    // Private properties
+    private var urlComponents: URLComponents = {
+        var components = URLComponents()
+        components.scheme = "https"
+        return components
+    }()
+
+    public init(path: String, decode: @escaping (HTTPResponse) throws -> Response) {
+        self.path = path
         self.decode = decode
     }
 }
 
 extension HTTPRequest where Response: Decodable {
-    public init() {
-        self.init(decode: { response in
+    public init(path: String) {
+        self.init(path: path, decode: { response in
             let decodedResponse = try JSONDecoder().decode(Response.self, from: response.body!)
             return decodedResponse
         })

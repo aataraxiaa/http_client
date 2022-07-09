@@ -7,11 +7,10 @@
 
 import Foundation
 
+/// Type which encapsulates a HTTP error
 public struct HTTPError: Error {
-    
-    public let code: Code
-    public let underlyingError: Error
 
+    /// HTTP error code
     public enum Code {
         case invalidRequest
         case cannotConnect
@@ -20,4 +19,7 @@ public struct HTTPError: Error {
         case invalidResponse
         case unknown
     }
+    
+    public let code: Code
+    public let underlyingError: Error
 }

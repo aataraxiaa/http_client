@@ -10,13 +10,9 @@ import Foundation
 
 extension HTTPRequest {
 
-//    static let basicGet: HTTPRequest = {
-//
-//    }()
-
-    var get: HTTPRequest<String> {
+    static var basicGet: HTTPRequest<String> {
         get {
-            HTTPRequest<String>()
+            HTTPRequest<String>(path: "/api/test")
         }
     }
 }
@@ -35,4 +31,8 @@ extension HTTPURLResponse {
     static let clientError = HTTPURLResponse(url: .mock, statusCode: 400, httpVersion: nil, headerFields: nil)!
 
     static let serverError = HTTPURLResponse(url: .mock, statusCode: 500, httpVersion: nil, headerFields: nil)!
+}
+
+struct Person: Decodable {
+    let name: String
 }
