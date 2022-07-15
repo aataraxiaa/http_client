@@ -10,9 +10,9 @@ import Foundation
 
 extension HTTPRequest {
 
-    static var basicGet: HTTPRequest<String> {
+    static var basicGet: HTTPRequest {
         get {
-            HTTPRequest<String>(path: "/api/test")
+            HTTPRequest(path: "/api/test")
         }
     }
 }

@@ -34,6 +34,7 @@ public struct HTTPResponse {
         }
     }
 
+    public let request: HTTPRequest
     public let body: Data?
     public let response: HTTPURLResponse
 

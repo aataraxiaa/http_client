@@ -9,10 +9,10 @@ import Foundation
 
 
 /// Type representing a HTTP request
-public struct HTTPRequest<Response> {
+public struct HTTPRequest {
 
     /// HTTP method types
-    public enum HTTPMethod {
+    public enum HTTPMethod: String {
         case get
         case post
         case put
@@ -27,9 +27,6 @@ public struct HTTPRequest<Response> {
     // Requests with a body (e.g `post`)
     public var body: Data?
 
-    // Decoding
-    public let decode: (HTTPResponse) throws -> Response
-
     // Private properties
     private var urlComponents: URLComponents = {
         var components = URLComponents()
@@ -37,17 +34,7 @@ public struct HTTPRequest<Response> {
         return components
     }()
 
-    public init(path: String, decode: @escaping (HTTPResponse) throws -> Response) {
-        self.path = path
-        self.decode = decode
-    }
-}
-
-extension HTTPRequest where Response: Decodable {
     public init(path: String) {
-        self.init(path: path, decode: { response in
-            let decodedResponse = try JSONDecoder().decode(Response.self, from: response.body!)
-            return decodedResponse
-        })
+        self.path = path
     }
 }
