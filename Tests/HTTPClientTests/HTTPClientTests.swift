@@ -3,11 +3,11 @@ import XCTest
 
 final class HTTPClientTests: XCTestCase {
 
-    let sut = HTTPClient(host: "swapi.dev/api/")
+    let sut = HTTPClient(host: "swapi.dev")
     
     func testGet() throws {
         // Given
-        let getPersonRequest = HTTPRequest(path: "people/1")
+        let getPersonRequest = HTTPRequest(path: "/api/people/1")
         let expectation = XCTestExpectation(description: "Fetch a person asynchoronously")
 
         // When
@@ -23,6 +23,6 @@ final class HTTPClientTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 20)
     }
 }

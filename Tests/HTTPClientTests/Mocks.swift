@@ -9,12 +9,7 @@ import Foundation
 @testable import HTTPClient
 
 extension HTTPRequest {
-
-    static var basicGet: HTTPRequest {
-        get {
-            HTTPRequest(path: "/api/test")
-        }
-    }
+    static let basicGet = HTTPRequest(path: "/api/test")
 }
 
 extension URL {

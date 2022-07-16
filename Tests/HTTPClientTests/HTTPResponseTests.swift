@@ -15,7 +15,7 @@ final class HTTPResponseTests: XCTestCase {
     func testStatusInfo() throws {
 
         // Given
-        let sut = HTTPResponse(body: nil, response: .info)
+        let sut = HTTPResponse(request: .basicGet, body: nil, response: .info)
         let expected = HTTPResponse.HTTPStatus.info
 
         // When
@@ -28,7 +28,7 @@ final class HTTPResponseTests: XCTestCase {
     func testStatusSuccess() throws {
 
         // Given
-        let sut = HTTPResponse(body: nil, response: .success)
+        let sut = HTTPResponse(request: .basicGet, body: nil, response: .success)
         let expected = HTTPResponse.HTTPStatus.success
 
         // When
@@ -41,7 +41,7 @@ final class HTTPResponseTests: XCTestCase {
     func testStatusRedirect() throws {
 
         // Given
-        let sut = HTTPResponse(body: nil, response: .redirect)
+        let sut = HTTPResponse(request: .basicGet, body: nil, response: .redirect)
         let expected = HTTPResponse.HTTPStatus.redirection
 
         // When
@@ -54,7 +54,7 @@ final class HTTPResponseTests: XCTestCase {
     func testStatusClientError() throws {
 
         // Given
-        let sut = HTTPResponse(body: nil, response: .clientError)
+        let sut = HTTPResponse(request: .basicGet, body: nil, response: .clientError)
         let expected = HTTPResponse.HTTPStatus.clientErrors
 
         // When
@@ -67,7 +67,7 @@ final class HTTPResponseTests: XCTestCase {
     func testStatusServerError() throws {
 
         // Given
-        let sut = HTTPResponse(body: nil, response: .serverError)
+        let sut = HTTPResponse(request: .basicGet, body: nil, response: .serverError)
         let expected = HTTPResponse.HTTPStatus.serverErrors
 
         // When

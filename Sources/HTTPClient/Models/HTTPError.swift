@@ -23,3 +23,9 @@ public struct HTTPError: Error {
     public let code: Code
     public let underlyingError: Error
 }
+
+public enum BaseError: Error {
+    case invalidURL
+    case invalidBody
+    case unknown
+}

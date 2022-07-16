@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  HTTPRequest.swift
 //  
 //
 //  Created by Pete Smith on 30/06/2022.
@@ -25,14 +25,7 @@ public struct HTTPRequest {
     public var headers: [String: String] = [:]
 
     // Requests with a body (e.g `post`)
-    public var body: Data?
-
-    // Private properties
-    private var urlComponents: URLComponents = {
-        var components = URLComponents()
-        components.scheme = "https"
-        return components
-    }()
+    public var body: HTTPBody = EmptyBody()
 
     public init(path: String) {
         self.path = path
