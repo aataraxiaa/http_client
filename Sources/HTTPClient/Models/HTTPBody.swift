@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Generalized form of a type that provides `Data` for a HTTP request
+/// Generalized type that provides body`Data` for a HTTP request
 public protocol HTTPBody {
     var isEmpty: Bool { get }
     var additionalHeaders: [String: String] { get }
@@ -20,13 +20,13 @@ extension HTTPBody {
     public var additionalHeaders: [String: String] { [:] }
 }
 
-/// Empty Body
+/// Type represening an empty HTTP body
 public struct EmptyBody: HTTPBody {
     public let isEmpty = true
     public func encode() throws -> Data { Data() }
 }
 
-/// Wraps a `Data` value
+/// Type represening a `Data` HTTP body
 public struct DataBody: HTTPBody {
     private let data: Data
 
@@ -41,7 +41,7 @@ public struct DataBody: HTTPBody {
     public func encode() throws -> Data { data }
 }
 
-/// Encapsulates a JSON body
+/// Type represening a JSON HTTP body
 public struct JSONBody: HTTPBody {
     public var isEmpty = false
     public var additionalHeaders = [

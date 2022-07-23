@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Type representing a HTTP request
 public struct HTTPRequest {
 

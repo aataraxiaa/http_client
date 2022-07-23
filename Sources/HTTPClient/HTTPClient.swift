@@ -7,56 +7,62 @@
 
 import Foundation
 
+/// A type which loads `HTTPRequest`s and returns a `HTTPResult`. Internally uses `URLSession` to make HTTP requests.
 public struct HTTPClient: HTTPLoading {
 
+    /// Host which will be the target of HTTP requests
     public let host: String
 
+    /// Initializer for `HTTPClient`
+    /// - Parameter host: Host which will be the target of HTTP requests. Must be of the format `api.citybik.es`
     public init(host: String) {
         self.host = host
     }
 
     private let session = URLSession.shared
 
+    /// Loads `HTTPRequest`s and returns a `HTTPResult`. Internally uses `URLSession` to make HTTP requests.
+    /// - Parameters:
+    ///   - request: `HTTPRequest` to make
+    ///   - completion: A `HTTPResult` value
     public func load(request: HTTPRequest, completion: @escaping (HTTPResult) -> Void) {
 
+        // Construct URL
         guard let url = urlFor(request) else {
-            // we couldn't construct a proper URL out of the request's URLComponents
-            completion(.failure(HTTPError(code: .invalidRequest, underlyingError: BaseError.invalidURL)))
+            completion(.failure(HTTPError(code: .invalidRequest, underlyingError: URLError(.badURL))))
             return
         }
 
-        // construct the URLRequest
+        // Construct the URLRequest
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
 
-        // copy over any custom HTTP headers
+        // Add any custom HTTP headers
         for (header, value) in request.headers {
             urlRequest.addValue(value, forHTTPHeaderField: header)
         }
 
+        // Add a body to the request if it exists
         if !request.body.isEmpty {
-            // if our body defines additional headers, add them
+            // Body headers
             for (header, value) in request.body.additionalHeaders {
                 urlRequest.addValue(value, forHTTPHeaderField: header)
             }
 
-            // attempt to retrieve the body data
+            // Encode the body
             do {
                 urlRequest.httpBody = try request.body.encode()
             } catch {
-                // something went wrong creating the body; stop and report back
-                completion(.failure(HTTPError(code: .unknown, underlyingError: BaseError.unknown)))
+                completion(.failure(HTTPError(code: .unknown, underlyingError: URLError(.unknown))))
                 return
             }
         }
 
         let dataTask = session.dataTask(with: urlRequest) { (data, response, error) in
-            // construct a Result<HTTPResponse, HTTPError> out of the triplet of data, url response, and url error
             let result = HTTPResult(request: request, responseData: data, response: response, error: error)
             completion(result)
         }
 
-        // off we go!
         dataTask.resume()
     }
 }

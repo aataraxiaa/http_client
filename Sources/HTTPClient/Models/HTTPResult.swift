@@ -7,8 +7,13 @@
 
 import Foundation
 
+/// Typealias for a `Result` with a success type of `HTTPResponse` and an error type of `HTTPError`
+///
+/// Note: At this layer, “successful” means “we got a response”, and not “the response indicates some sort of semantic error”.
+/// e.g Getting a 500 Internal Server Error or 404 Not Found response is a successful response
 public typealias HTTPResult = Result<HTTPResponse, HTTPError>
 
+/// Provides a initializer for the `HTTPResult` typealias
 extension HTTPResult {
     public init(request: HTTPRequest, responseData: Data?, response: URLResponse?, error: Error?) {
         var httpResponse: HTTPResponse?
@@ -32,7 +37,7 @@ extension HTTPResult {
             self = .success(r)
         } else {
             // not an error, but also not an HTTPURLResponse
-            self = .failure(HTTPError(code: .unknown, underlyingError: BaseError.unknown))
+            self = .failure(HTTPError(code: .unknown, underlyingError: URLError(.unknown)))
         }
     }
 }

@@ -7,8 +7,10 @@
 
 import Foundation
 
+/// Type encapsulating a HTTP response
 public struct HTTPResponse {
 
+    /// Type representing the status of a HTTP response
     public enum HTTPStatus: Int {
         case info
         case success

@@ -10,6 +10,10 @@ import Foundation
 
 extension HTTPRequest {
     static let basicGet = HTTPRequest(path: "/api/test")
+
+    static func cityBikPath(_ path: String) -> String {
+        "/v2/networks/\(path)"
+    }
 }
 
 extension URL {
@@ -26,8 +30,4 @@ extension HTTPURLResponse {
     static let clientError = HTTPURLResponse(url: .mock, statusCode: 400, httpVersion: nil, headerFields: nil)!
 
     static let serverError = HTTPURLResponse(url: .mock, statusCode: 500, httpVersion: nil, headerFields: nil)!
-}
-
-struct Person: Decodable {
-    let name: String
 }
