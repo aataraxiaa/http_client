@@ -27,7 +27,7 @@ public struct EmptyBody: HTTPBody {
 }
 
 /// Type represening a `Data` HTTP body
-public struct DataBody: HTTPBody {
+public struct DataBody: HTTPBody, Equatable {
     private let data: Data
 
     public var isEmpty: Bool { data.isEmpty }

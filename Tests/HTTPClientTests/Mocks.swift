@@ -31,3 +31,9 @@ extension HTTPURLResponse {
 
     static let serverError = HTTPURLResponse(url: .mock, statusCode: 500, httpVersion: nil, headerFields: nil)!
 }
+
+public struct ErrorBody: HTTPBody {
+    public func encode() throws -> Data {
+        throw URLError(.badURL)
+    }
+}

@@ -20,13 +20,14 @@ public struct HTTPRequest {
 
     // Public properties
     public var path: String
-    public var method: HTTPMethod = .get
+    public var method: HTTPMethod
     public var headers: [String: String] = [:]
 
     // Requests with a body (e.g `post`)
     public var body: HTTPBody = EmptyBody()
 
-    public init(path: String) {
+    public init(path: String, method: HTTPMethod = .get) {
+        self.method = method
         self.path = path
     }
 }
